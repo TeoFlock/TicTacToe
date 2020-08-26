@@ -7,4 +7,7 @@
     </string>
     <string name="play_button">PLAY</string>
     <string name="about_button">ABOUT</string>
+    <string name="title_text">TIC TAC TOE</string>
+    <string name="player1_edit">Name Spieler 1 eingeben</string>
+    <string name="player2_edit">Name Spieler 2 eingeben</string>
 </resources>

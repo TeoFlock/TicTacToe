@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/titleFragment">
+
+    <fragment
+        android:id="@+id/titleFragment"
+        android:name="com.example.android.tictactoe.TitleFragment"
+        android:label="fragment_title"
+        tools:layout="@layout/fragment_title" >
+        <action
+            android:id="@+id/action_titleFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment"
+            app:popUpTo="@id/titleFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_playGroundFragment"
+            app:destination="@id/playGroundFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.android.tictactoe.AboutFragment"
+        android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/playGroundFragment"
+        android:name="com.example.android.tictactoe.PlayGroundFragment"
+        android:label="fragment_play_ground"
+        tools:layout="@layout/fragment_play_ground" />
+</navigation>
