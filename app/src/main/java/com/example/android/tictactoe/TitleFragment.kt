@@ -29,6 +29,9 @@ class TitleFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var player1: Player
+    private lateinit var player2: Player
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +53,13 @@ class TitleFragment : Fragment() {
 
         _binding?.buttonAbout?.setOnClickListener {
             this.findNavController().navigate(R.id.action_titleFragment_to_aboutFragment)
+        }
+
+        if(binding.player1Name != null && binding.player2Name != null) {
+            player1 = Player(binding.player1Name!!)
+            player2 = Player(binding.player2Name!!)
+
+
         }
         return binding.root
 
