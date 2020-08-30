@@ -29,10 +29,6 @@ class TitleFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var player1: Player
-    private lateinit var player2: Player
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -48,18 +44,20 @@ class TitleFragment : Fragment() {
         _binding = FragmentTitleBinding.inflate(inflater, container, false)
 
         _binding?.buttonPlay?.setOnClickListener {
-            this.findNavController().navigate(R.id.action_titleFragment_to_playGroundFragment)
+            val player1 = binding.player1Name
+            val player2 = binding.player2Name
+
+            if(player1 != null && player2 != null) {
+                val action = TitleFragmentDirections.actionTitleFragmentToPlayGroundFragment(
+                    player1,
+                    player2
+                )
+                this.findNavController().navigate(action)
+            }
         }
 
         _binding?.buttonAbout?.setOnClickListener {
             this.findNavController().navigate(R.id.action_titleFragment_to_aboutFragment)
-        }
-
-        if(binding.player1Name != null && binding.player2Name != null) {
-            player1 = Player(binding.player1Name!!)
-            player2 = Player(binding.player2Name!!)
-
-
         }
         return binding.root
 

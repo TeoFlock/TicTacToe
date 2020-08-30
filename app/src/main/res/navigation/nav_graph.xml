@@ -26,5 +26,14 @@
         android:id="@+id/playGroundFragment"
         android:name="com.example.android.tictactoe.PlayGroundFragment"
         android:label="fragment_play_ground"
-        tools:layout="@layout/fragment_play_ground" />
+        tools:layout="@layout/fragment_play_ground" >
+        <argument
+            android:name="player1Name"
+            app:argType="string"
+            android:defaultValue="nullinger" />
+        <argument
+            android:name="player2Name"
+            app:argType="string"
+            android:defaultValue="nullinger" />
+    </fragment>
 </navigation>

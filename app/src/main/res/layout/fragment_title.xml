@@ -13,6 +13,7 @@
         <variable
             name="player2Name"
             type="String" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

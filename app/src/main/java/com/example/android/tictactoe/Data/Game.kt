@@ -1,5 +1,6 @@
-package com.example.android.tictactoe
+package com.example.android.tictactoe.Data
 
+import androidx.databinding.BaseObservable
 import java.lang.IllegalArgumentException
 
 enum class GameState {
@@ -36,7 +37,11 @@ class Game(val player1: Player, val player2: Player) {
     }
 
     fun setField(field: Field): Boolean {
-        fields.find { it == Field(field.row, field.column) }.apply {
+        fields.find { it == Field(
+            field.row,
+            field.column
+        )
+        }.apply {
             if (this?.player == null) {
                 this?.player = currentPlayer
                 runs++
@@ -56,7 +61,11 @@ class Game(val player1: Player, val player2: Player) {
         for(col in 0..2) {
             fieldsLine.clear()
             for(row in 0..2) {
-                fieldsLine.add(fields.find { it == Field(row, col) })
+                fieldsLine.add(fields.find { it == Field(
+                    row,
+                    col
+                )
+                })
             }
             if(fieldsLine.threeInRow()) {
                 return fieldsLine[0]?.player
@@ -66,7 +75,11 @@ class Game(val player1: Player, val player2: Player) {
         for(row in 0..2) {
             fieldsLine.clear()
             for(col in 0..2) {
-                fieldsLine.add(fields.find { it == Field(row, col) })
+                fieldsLine.add(fields.find { it == Field(
+                    row,
+                    col
+                )
+                })
             }
             if(fieldsLine.threeInRow()) {
                 return fieldsLine[0]?.player
@@ -75,7 +88,11 @@ class Game(val player1: Player, val player2: Player) {
 
         fieldsLine.clear()
         for(diagonalIdx in 0..2) {
-            fieldsLine.add(fields.find { it == Field(diagonalIdx, diagonalIdx) })
+            fieldsLine.add(fields.find { it == Field(
+                diagonalIdx,
+                diagonalIdx
+            )
+            })
         }
         if(fieldsLine.threeInRow()) {
             return fieldsLine[0]?.player
@@ -85,7 +102,11 @@ class Game(val player1: Player, val player2: Player) {
         var row = 0
         var col = 2
         while(row < 3) {
-            fieldsLine.add(fields.find { it == Field(row, col) })
+            fieldsLine.add(fields.find { it == Field(
+                row,
+                col
+            )
+            })
             row++
             col--
         }
@@ -119,7 +140,13 @@ class Game(val player1: Player, val player2: Player) {
     init {
         for(row in 0..2) {
             for(col in 0..2) {
-                fields.add(Field(row, col, null))
+                fields.add(
+                    Field(
+                        row,
+                        col,
+                        null
+                    )
+                )
             }
         }
     }

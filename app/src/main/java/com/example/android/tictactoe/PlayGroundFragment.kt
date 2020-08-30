@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
+import com.example.android.tictactoe.Data.Game
+import com.example.android.tictactoe.Data.Player
+import com.example.android.tictactoe.databinding.FragmentPlayGroundBinding
+import androidx.navigation.NavArgs as NavArgs1
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,10 +21,20 @@ private const val ARG_PARAM2 = "param2"
  * Use the [PlayGroundFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PlayGroundFragment : Fragment() {
+class PlayGroundFragment : Fragment()  {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private var _binding: FragmentPlayGroundBinding? = null
+    private val binding get() = _binding!!
+
+    val args: PlayGroundFragmentArgs by navArgs()
+
+    private lateinit var player1: Player
+    private lateinit var player2: Player
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +48,23 @@ class PlayGroundFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentPlayGroundBinding.inflate(inflater, container, false)
+
+        val player1 = Player(args.player1Name)
+        val player2 = Player(args.player2Name)
+
+        val game = Game(player1, player2)
+
+        binding.nextPlayer.text = "${game.currentPlayer.name} ist dran!"
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_play_ground, container, false)
+        return binding.root
     }
+
+
+
+
 
     companion object {
         /**

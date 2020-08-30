@@ -1,4 +1,4 @@
-package com.example.android.tictactoe
+package com.example.android.tictactoe.Data
 
 enum class State {
     INITGAME, PLAY, MENU, SHOW_SCORE, ENDGAME, VERSION_INFO
@@ -21,7 +21,13 @@ fun getUserInput(player: Player, state: State, fieldWasFree: Boolean): Pair<Fiel
         val readField = readLine()
 
         if(readField == "m") {
-            return Pair(Field(row, col, player), State.MENU)
+            return Pair(
+                Field(
+                    row,
+                    col,
+                    player
+                ), State.MENU
+            )
         }
 
         if (readField == null || readField.length != 2) {
@@ -90,19 +96,27 @@ fun getUsers(): Pair<Player, Player> {
         userNameSecond = readLine()
     }
 
-    return Pair(Player(userNameFirst), Player(userNameSecond))
+    return Pair(
+        Player(userNameFirst),
+        Player(userNameSecond)
+    )
 }
 
 fun main() {
     var players = getUsers()
-    var game = Game(players.first, players.second)
-    var machineState: State = State.PLAY
+    var game =
+        Game(players.first, players.second)
+    var machineState: State =
+        State.PLAY
 
     while(true) {
         when (machineState) {
             State.INITGAME -> {
                 players = getUsers()
-                game = Game(players.first, players.second)
+                game = Game(
+                    players.first,
+                    players.second
+                )
                 machineState = State.PLAY
             }
 
@@ -111,7 +125,12 @@ fun main() {
                 var fieldIsFree = true
 
                 do {
-                    val userInput = getUserInput(game.currentPlayer, machineState, fieldIsFree)
+                    val userInput =
+                        getUserInput(
+                            game.currentPlayer,
+                            machineState,
+                            fieldIsFree
+                        )
                     machineState = userInput.second
                     fieldIsFree = game.setField(userInput.first)
                 } while(!fieldIsFree && machineState != State.MENU)
