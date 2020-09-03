@@ -1,12 +1,17 @@
-package com.example.android.tictactoe
+package com.example.android.tictactoe.screens.title
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.android.tictactoe.R
 import com.example.android.tictactoe.databinding.FragmentTitleBinding
+import kotlin.time.measureTimedValue
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,6 +34,8 @@ class TitleFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var viewModel: TitleViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -43,24 +50,39 @@ class TitleFragment : Fragment() {
     ): View? {
         _binding = FragmentTitleBinding.inflate(inflater, container, false)
 
-        _binding?.buttonPlay?.setOnClickListener {
-            val player1 = binding.player1Name
-            val player2 = binding.player2Name
+        viewModel = ViewModelProvider(this).get(TitleViewModel::class.java)
 
-            if(player1 != null && player2 != null) {
-                val action = TitleFragmentDirections.actionTitleFragmentToPlayGroundFragment(
-                    player1,
-                    player2
-                )
-                this.findNavController().navigate(action)
-            }
+        _binding?.buttonPlay?.setOnClickListener {
+            viewModel.onTitleFinish()
         }
+
+        viewModel.editNamesFinish.observe(viewLifecycleOwner, Observer { hasFinished ->
+            if(hasFinished) {
+                viewModel.enterPlayer1Name(_binding?.editTextPlayer1?.text.toString())
+                viewModel.enterPlayer2Name(_binding?.editTextPlayer2?.text.toString())
+
+                startGame()
+                viewModel.onTitleFinishDone()
+            }
+        })
 
         _binding?.buttonAbout?.setOnClickListener {
-            this.findNavController().navigate(R.id.action_titleFragment_to_aboutFragment)
+            showAbout()
         }
-        return binding.root
 
+        return binding.root
+    }
+
+    private fun startGame() {
+        val argPlayer1 = viewModel.player1Name.value ?: "NameError"
+        val argPlayer2 = viewModel.player2Name.value ?: "NameError"
+
+        val action = TitleFragmentDirections.actionTitleFragmentToPlayGroundFragment(argPlayer1, argPlayer2)
+        this.findNavController().navigate(action)
+    }
+
+    private fun showAbout() {
+        this.findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToAboutFragment())
     }
 
     override fun onDestroyView() {
@@ -81,7 +103,8 @@ class TitleFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            TitleFragment().apply {
+            TitleFragment()
+                .apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

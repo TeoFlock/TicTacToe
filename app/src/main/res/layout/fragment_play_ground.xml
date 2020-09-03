@@ -12,6 +12,7 @@
         <variable
             name="player2"
             type="String" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,5 +41,101 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/show_move"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/playground_empty" />
+
+        <Button
+            android:id="@+id/button_a1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text=""
+            app:layout_constraintBottom_toTopOf="@+id/button_b1"
+            app:layout_constraintEnd_toStartOf="@+id/button_a2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/playground_empty"
+            app:layout_constraintTop_toTopOf="@+id/playground_empty"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/button_a2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text=""
+            app:layout_constraintBottom_toTopOf="@+id/button_b2"
+            app:layout_constraintEnd_toStartOf="@+id/button_a3"
+            app:layout_constraintTop_toTopOf="@+id/playground_empty"
+            app:layout_constraintVertical_bias="0.369" />
+
+        <Button
+            android:id="@+id/button_a3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text=""
+            app:layout_constraintBottom_toTopOf="@+id/button_b3"
+            app:layout_constraintEnd_toEndOf="@+id/playground_empty"
+            app:layout_constraintTop_toTopOf="@+id/playground_empty"
+            app:layout_constraintVertical_bias="0.391" />
+
+        <Button
+            android:id="@+id/button_b1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text=""
+            app:layout_constraintBottom_toTopOf="@+id/button_c2"
+            app:layout_constraintEnd_toStartOf="@+id/button_b2"
+            app:layout_constraintHorizontal_bias="0.958"
+            app:layout_constraintStart_toStartOf="@+id/playground_empty" />
+
+        <Button
+            android:id="@+id/button_b2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text=""
+            app:layout_constraintBottom_toTopOf="@+id/button_c2"
+            app:layout_constraintEnd_toStartOf="@+id/button_b3" />
+
+        <Button
+            android:id="@+id/button_b3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text=""
+            app:layout_constraintBottom_toTopOf="@+id/button_c3"
+            app:layout_constraintEnd_toEndOf="@+id/playground_empty" />
+
+        <Button
+            android:id="@+id/button_c1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text=""
+            app:layout_constraintBottom_toBottomOf="@+id/playground_empty"
+            app:layout_constraintEnd_toStartOf="@+id/button_c2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/playground_empty"
+            app:layout_constraintTop_toBottomOf="@+id/button_b1"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/button_c2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text=""
+            app:layout_constraintBottom_toBottomOf="@+id/playground_empty"
+            app:layout_constraintEnd_toStartOf="@+id/button_c3" />
+
+        <Button
+            android:id="@+id/button_c3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:text=""
+            app:layout_constraintBottom_toBottomOf="@+id/playground_empty"
+            app:layout_constraintEnd_toEndOf="@+id/playground_empty" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

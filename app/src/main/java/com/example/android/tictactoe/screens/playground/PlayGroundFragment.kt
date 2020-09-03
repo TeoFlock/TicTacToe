@@ -1,15 +1,19 @@
-package com.example.android.tictactoe
+package com.example.android.tictactoe.screens.playground
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import com.example.android.tictactoe.Data.Game
+import com.example.android.tictactoe.Data.Field
 import com.example.android.tictactoe.Data.Player
 import com.example.android.tictactoe.databinding.FragmentPlayGroundBinding
-import androidx.navigation.NavArgs as NavArgs1
+import java.lang.IllegalArgumentException
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,10 +35,8 @@ class PlayGroundFragment : Fragment()  {
 
     val args: PlayGroundFragmentArgs by navArgs()
 
-    private lateinit var player1: Player
-    private lateinit var player2: Player
-
-
+    private lateinit var viewModel: PlaygroundViewModel
+    private lateinit var viewModelFactory: PlayGroundViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,19 +52,53 @@ class PlayGroundFragment : Fragment()  {
     ): View? {
         _binding = FragmentPlayGroundBinding.inflate(inflater, container, false)
 
-        val player1 = Player(args.player1Name)
-        val player2 = Player(args.player2Name)
+        viewModelFactory = PlayGroundViewModelFactory(args.player1Name, args.player2Name)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(PlaygroundViewModel::class.java)
 
-        val game = Game(player1, player2)
+        viewModel.currentPlayer.observe(viewLifecycleOwner, Observer { player ->
+            _binding?.nextPlayer?.text = "${player} ist dran!"
+        })
 
-        binding.nextPlayer.text = "${game.currentPlayer.name} ist dran!"
+        viewModel.currentPlayerScored.observe(viewLifecycleOwner, Observer { hasScored ->
+            if(hasScored) {
+                showWinner()
+                viewModel.onScoredDone()
+            }
+        })
+
+        viewModel.chosenFieldKey.observe(viewLifecycleOwner, Observer { key ->
+            val button = accessButtonByString(key) ?: throw IllegalAccessError("binding object not found")
+            button.text = viewModel.currentPlayerSign.value
+        })
+
+        _binding?.buttonA1?.setOnClickListener {
+            viewModel.onButtonClick("a1")
+        }
 
 
         // Inflate the layout for this fragment
         return binding.root
     }
 
+    private fun showWinner() {
+        val showText = "${viewModel.currentPlayer.value} has scored!"
+        Toast.makeText(this.context, showText, Toast.LENGTH_LONG).show()
+    }
 
+    private fun accessButtonByString(buttonKey: String): Button? {
+        return when(buttonKey) {
+            "a1" -> _binding?.buttonA1
+            "a2" -> _binding?.buttonA2
+            "a3" -> _binding?.buttonA3
+            "b1" -> _binding?.buttonB1
+            "b2" -> _binding?.buttonB2
+            "b3" -> _binding?.buttonB3
+            "c1" -> _binding?.buttonC1
+            "c2" -> _binding?.buttonC2
+            "c3" -> _binding?.buttonC3
+            else -> throw IllegalArgumentException("No Button found for key $buttonKey")
+        }
+    }
 
 
 
@@ -78,7 +114,8 @@ class PlayGroundFragment : Fragment()  {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            PlayGroundFragment().apply {
+            PlayGroundFragment()
+                .apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

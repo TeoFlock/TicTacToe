@@ -5,21 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="player1Name"
-            type="String" />
-
-        <variable
-            name="player2Name"
-            type="String" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".TitleFragment">
+        tools:context=".screens.title.TitleFragment">
 
         <ImageView
             android:id="@+id/title_image"
@@ -72,7 +61,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:hint="@string/player1_edit"
-            android:text="@={player1Name}"
+            android:text=""
             app:layout_constraintBottom_toTopOf="@+id/edit_text_player2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -85,12 +74,14 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:hint="@string/player2_edit"
-            android:text="@={player2Name}"
+            android:text=""
             app:layout_constraintBottom_toTopOf="@+id/button_play"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_player_1" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
